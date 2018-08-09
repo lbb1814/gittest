@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <style>
+        .color{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.number="val" placeholder="">
+        <button @click="commit">确定</button>
+        <ul ref="list">
+            <li v-for="(val,index) in arrs" :key="index" :class="{color:val.cl}" @click="changeColor(index)">
+                {{`${index+1}.${arrs[index].val}`}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                val:'',
+                arr:[],
+                index:0,
+                isClick:null
+            },
+            computed:{
+                arrs(){
+                    return this.arr.sort(function(a,b){return a.val-b.val;});
+                }
+            },
+            methods:{
+                commit(){
+                    console.log(typeof this.val)
+                    if(typeof this.val!=='number'){
+                        this.val='';
+                        return;
+                    }
+                    this.arr.push({val:this.val,cl:false});
+                    this.index+=1;
+                    this.val='';
+                },
+                changeColor(index){
+                    this.arr[index].cl=!this.arr[index].cl;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

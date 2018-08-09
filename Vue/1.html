@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(val,index) in arr">
+                {{index}},{{val.name}}
+            </li>
+        </ul>
+        <!-- {{msg}} -->
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                msg:'hello vue!',
+                arr:[{name:'bb'},{name:'aa'},{name:'cc'}]
+            },
+            computed:{
+                fullName:{
+                 set:function(val){
+                        var arr=val.split(" ");
+                    },
+                    get:{
+                        
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
