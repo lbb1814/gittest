@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+            background: green;
+            border: 1px solid #000;
+            margin: 1px;
+        }
+        #app{
+            width: 400px;
+            height: 400px;
+            position: relative;
+            margin: 0 auto;
+        }
+        h2{
+            text-align: center;
+        
+        }
+        li span{
+            position: absolute;
+            right: 5px;
+        }
+        .red{
+            background: #ff0000;
+        }
+        #right{
+            position: absolute;
+            right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>services</h2>
+        <ul>
+            <li v-for='(obj,index) in contain' :class='{red:obj.isRed}' @click='fn(obj)'>
+                {{obj.name}}    <span>{{obj.pice}}</span>
+            </li>
+        </ul>
+        <div id="tele">
+            <span id="left">autom</span>
+            <span id="right">
+                {{aVal}}
+            </span>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                contain:[{name:"aaa",pice:234,isRed:false},
+                        {name:'bbb',pice:327,isRed:false},
+                        {name:'ccc',pice:247,isRed:false},
+                        {name:'ddd',pice:346,isRed:false},
+                        {name:'eee',pice:532,isRed:false}],
+                aVal:0,
+
+            },
+            methods:{
+                fn(index){
+                    index.isRed=!index.isRed;
+                    if(index.isRed){
+                        this.aVal+=index.pice;
+                    }else{
+                        this.aVal-=index.pice;
+                    }
+                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>

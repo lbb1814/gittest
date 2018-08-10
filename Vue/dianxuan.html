@@ -6,55 +6,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .color{
-            background: #ff0000;
-        }
-        li{
-            list-style: none;
-        }
-        ul{
-            width: 400px;
+        .red{
+            color:red;
+            /* background: #000; */
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <input type="text" v-model.number="val" placeholder='ssss'>
-        <button @click='fn()'>确定</button>
+        <input type="text" v-model='val' @keyup.13='fn()' @keyup='retri()'>
+        <button @click='fn()'>click</button>
         <ul>
-            <li v-for='(numb,index) in arr' :class="{color:mdzz}" @click='mdzz=!mdzz'>
-                {{index+1}}. {{arr[index]}}
+            <li v-for='xx in showArr' :class="{red:xx.cl}" @click='xx.cl=!xx.cl'>
+                {{xx.aVal}}
             </li>
         </ul>
     </div>
     <script src="vue.js"></script>
     <script>
-        var nowIndex=0;
-        var vm=new Vue({
+        new Vue({
             el:'#app',
             data:{
                 val:'',
                 arr:[],
-                Iscol:'a',
-                mdzz:false
+                showArr:[]
             },
             methods:{
                 fn(){
-                    this.arr[nowIndex]=this.val;
-                    nowIndex+=1;
-                   
-                        this.arr.sort(function(a,b){
-                            return a-b;
-                        });
-                        this.val='';
+                    this.arr.push({aVal:this.val,cl:false});
+                    this.arr.sort(function(a,b){
+                        return a.aVal-b.aVal;
+                    });
+                    this.val='';
+                    this.showArr=this.arr;
                 },
-                // col(index){
-                //     console.log(index);
-                //     this.Iscol=index;
+                //检索
+                retri(elem){
+                    var newArr=this.arr.filter((elem)=>{
+                        return elem.aVal.indexOf(this.val)!=-1;
+                    });
+                    this.showArr=newArr;
+                }
+                // change(elem){
+                //     elem.cl=!elem.cl;
+                //     console.log(111);
+                //     console.log(elem.cl);
                 // }
             }
-        });
-
+        })
     </script>
 </body>
 </html>
